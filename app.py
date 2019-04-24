@@ -12,17 +12,19 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_app")
 @app.route("/")
 def root():
     destination_data = mongo.db.collection.find_one()
-    return render_template("index.html", mars=destination_data)
+    return render_template("index.html", news=mars["news"], 
+    weather=mars["weather"], picture=mars["picture"], 
+    facts=mars["facts"], hemispheres=mars["hemispheres"])
 
 #Trigger the scrape function
 @app.route("/scrape")
 def scrape():
 
     #run the scrape
-    MarsData = scrape_mars.scrape_info()
+    mars = scrape_mars.scrape_info()
 
     #Update the Mongo database using update and upsert = True
-    mongo.db.collection.update({}, MarsData, upsert=True)
+    mongo.db.collection.update({}, mars, upsert=True)
 
     #Redirect back to home page
     return redirect('/')

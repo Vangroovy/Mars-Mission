@@ -11,9 +11,10 @@
 
 <body>
     <div class = "jumbotron text-center">        
-        <div class="container-fluid" style="background-image: {{mars.feature_image}}">
+        <div class="container-fluid" href="/scrape" >
+            <img src= "{{mars.feature_img}}" alt="mars">
             <h1> The Latest from Mars</h1>
-            <p>This site provides a summary on the latest pictures,
+            <p>This site provides a summary of the latest pictures,
                 weather and news about Mars.  It scrapes from NASA,
                 the Jet Propulsion Lab, the USGS Astrogeology site, 
                 and the Mars Twitter account.       
@@ -33,7 +34,7 @@
     </div>
     <div class = "col-md-4">
         <h3>Weather</h3>
-        <p> insert from dataframe</p>
+        <p> {{mars.weather}}</p>
     </div>
     <div class = "col-md-4">
         <h3>Hemispheres</h3>
