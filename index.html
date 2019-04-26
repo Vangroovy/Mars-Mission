@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Mars Data Consolidator</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class = "jumbotron text-center"> 
+            <!-- Top Banner Box-->       
+            <div class="container-fluid" >
+                <h3> The Latest from Mars</h3>
+                <p>This site provides a summary of the latest pictures,
+                    weather and news about Mars.  It scrapes from NASA,
+                    the Jet Propulsion Lab, the USGS Astrogeology site, 
+                    and the Mars Twitter account.       
+                </p>
+                <p><a class="btn btn-primary btn-sm" href="/scrape" role="button">Get Latest</a></p>
+                
+                    <img class="smaller img" src= "{{space.picture}}" alt="mars" >
+            </div>
+        </div>
+        <div class="container">
+            <!-- 3 column layout with weather, facts and hemispheres-->
+            <div class="row">
+                <div class = "col-md-4">
+                    <h3>Weather</h3>
+                    <p> {{space.weather}}</p>
+                </div>
+                <div class = "col-md-4">
+                    <h3>Facts</h3>
+                    <table class="table table-bordered">
+                        {% for f in space.facts%}
+                        <tr>
+                            <td>{{ f[0] }}</td>
+                            <td>{{ f[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                        </table>
+                </div>
+                <div class = "col-md-4">
+                    <h3>Hemispheres</h3>
+                    {% for hem in space.hemispheres%}
+                    <img src = "{{ hem['image_url'] }}" alt="hemisphere" class="img-thumbnail">
+                    <p class="small">{{hem["title"]}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <!--News with clickable headers that expand to summary-->
+            <div class = "col-md-12">
+                    <h3>Latest News Summaries</h3>
+                    <div class="bd-example">
+                    {% for f in space.news%}
+                        <details close>
+                            <summary>{{f["title"]}}</summary>
+                            <p small class="text-muted">{{f["content"]}}</p>
+                        </details>
+                    {% endfor%}
+                    </div> 
+                </div>
+        </div>
+    </body>
+
+</html>
