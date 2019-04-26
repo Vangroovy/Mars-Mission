@@ -20,7 +20,6 @@ def scrape():
     results = soup.find_all(class_='list_text')
     news = [] 
     # Loop through returned results to find title and articles
-    print(f"**** Got {len(results)} news results ****")
     for result in results:
             
             # Identify and return title of a news item
@@ -63,8 +62,6 @@ def scrape():
     #Scrape table and put into a panda dataframe
     table = soup.find(class_="tablepress tablepress-id-mars")
     mars_data = pd.read_html(str(table))
-    # headers = mars_data[0][0].tolist()
-    # facts = mars_data[0][1].tolist()
     headers = mars_data[0][0].values
     facts = mars_data[0][1].values
     mars_facts = list(zip(headers, facts))
